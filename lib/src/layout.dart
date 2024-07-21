@@ -24,14 +24,14 @@ extension FlutterDeclarativeSyntaxLayoutModify on Widget {
       Container(
         key: key,
         decoration: BoxDecoration(
-          color: color,
+          color: color ?? Colors.white.withOpacity(0.6),
           borderRadius: BorderRadius.all(
             Radius.circular(radius ?? 5),
           ),
           boxShadow: [
             BoxShadow(
               offset: const Offset(0, 3),
-              color: shadowColor ?? Colors.black.withOpacity(0.5),
+              color: shadowColor ?? Colors.grey.withOpacity(0.15),
               blurRadius: blurRadius ?? 8,
               spreadRadius: 0,
               blurStyle: BlurStyle.normal,

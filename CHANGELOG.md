@@ -5,3 +5,7 @@
 ## 0.0.2
 
 - Change README.md
+
+## 0.0.3
+
+- Change the card default background and shadow

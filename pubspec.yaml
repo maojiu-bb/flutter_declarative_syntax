@@ -1,6 +1,6 @@
 name: flutter_declarative_syntax
 description: Flutter Declarative Syntax is a plugin designed to enhance the development experience by providing a declarative syntax for common Flutter widget modifications. This plugin introduces a set of extension methods on existing Flutter widgets, allowing developers to apply common modifications such as layout adjustments, visual effects, and decorations in a more readable and concise manner. It aims to make Flutter code more expressive and easier to maintain.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/maojiu-bb/flutter_declarative_syntax
 
 environment:
