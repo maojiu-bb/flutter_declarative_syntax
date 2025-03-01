@@ -15,6 +15,9 @@ if ! command -v flutter pub &> /dev/null; then
     exit 1
 fi
 
+# Set pub hosting to pub.dev
+export PUB_HOSTED_URL=https://pub.dev
+
 # Run tests
 echo -e "\n${YELLOW}Running tests...${NC}"
 flutter test
