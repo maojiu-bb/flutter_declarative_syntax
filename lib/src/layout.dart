@@ -24,14 +24,14 @@ extension FlutterDeclarativeSyntaxLayoutModify on Widget {
       Container(
         key: key,
         decoration: BoxDecoration(
-          color: color ?? Colors.white.withOpacity(0.6),
+          color: color ?? Colors.white.withValues(alpha: 0.6),
           borderRadius: BorderRadius.all(
             Radius.circular(radius ?? 5),
           ),
           boxShadow: [
             BoxShadow(
               offset: const Offset(0, 3),
-              color: shadowColor ?? Colors.grey.withOpacity(0.15),
+              color: shadowColor ?? Colors.grey.withValues(alpha: 0.15),
               blurRadius: blurRadius ?? 8,
               spreadRadius: 0,
               blurStyle: BlurStyle.normal,
@@ -142,9 +142,9 @@ extension FlutterDeclarativeSyntaxLayoutModify on Widget {
 
   /// Wraps this widget in an [Opacity] widget with the given [opacity]
   /// and optional [alwaysIncludeSemantics].
-  Widget opacity(
-    double opacity, {
+  Widget opacity({
     Key? key,
+    required double opacity,
     bool alwaysIncludeSemantics = false,
   }) =>
       Opacity(
@@ -314,5 +314,134 @@ extension FlutterDeclarativeSyntaxLayoutModify on Widget {
         child: this,
       );
 
-  /// Wraps this widget in a [LimitedBox] to set a maximum width and h
+  /// Wraps this widget in a [LimitedBox] to set maximum dimensions.
+  ///
+  /// Parameters:
+  /// - [key]: Optional key for the widget.
+  /// - [maxWidth]: Maximum width constraint.
+  /// - [maxHeight]: Maximum height constraint.
+  Widget limited({
+    Key? key,
+    double maxWidth = double.infinity,
+    double maxHeight = double.infinity,
+  }) =>
+      LimitedBox(
+        key: key,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+        child: this,
+      );
+
+  /// Wraps this widget in a [SizedBox] with specified dimensions.
+  ///
+  /// Parameters:
+  /// - [key]: Optional key for the widget.
+  /// - [width]: The width to set.
+  /// - [height]: The height to set.
+  Widget sized({
+    Key? key,
+    double? width,
+    double? height,
+  }) =>
+      SizedBox(
+        key: key,
+        width: width,
+        height: height,
+        child: this,
+      );
+
+  /// Wraps this widget in a [Container] with specified dimensions.
+  ///
+  /// Parameters:
+  /// - [key]: Optional key for the widget.
+  /// - [width]: The width to set.
+  /// - [height]: The height to set.
+  /// - [color]: Background color.
+  /// - [padding]: Inner padding.
+  /// - [margin]: Outer margin.
+  /// - [alignment]: Child alignment.
+  Widget container({
+    Key? key,
+    double? width,
+    double? height,
+    Color? color,
+    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry? margin,
+    AlignmentGeometry? alignment,
+  }) =>
+      Container(
+        key: key,
+        width: width,
+        height: height,
+        color: color,
+        padding: padding,
+        margin: margin,
+        alignment: alignment,
+        child: this,
+      );
+
+  Widget backgroundColor(Color? color) => Container(
+        color: color?.withAlpha((255).round()),
+        child: this,
+      );
+
+  Widget backgroundColorWithOpacity(Color? color, double opacity) => Container(
+        color: color?.withAlpha((opacity * 255).round()),
+        child: this,
+      );
+}
+
+// 添加更多布局扩展
+extension FlutterDeclarativeSyntaxLayoutModifyExtra on Widget {
+  /// Wraps this widget in an [OverflowBox].
+  Widget overflowBox({
+    Key? key,
+    double? minWidth,
+    double? maxWidth,
+    double? minHeight,
+    double? maxHeight,
+    AlignmentGeometry alignment = Alignment.center,
+  }) =>
+      OverflowBox(
+        key: key,
+        minWidth: minWidth,
+        maxWidth: maxWidth,
+        minHeight: minHeight,
+        maxHeight: maxHeight,
+        alignment: alignment,
+        child: this,
+      );
+
+  /// Wraps this widget in a [CustomSingleChildLayout].
+  Widget customLayout({
+    Key? key,
+    required SingleChildLayoutDelegate delegate,
+  }) =>
+      CustomSingleChildLayout(
+        key: key,
+        delegate: delegate,
+        child: this,
+      );
+
+  /// Wraps this widget in an [IntrinsicWidth].
+  Widget intrinsicWidth({
+    Key? key,
+    double? stepWidth,
+    double? stepHeight,
+  }) =>
+      IntrinsicWidth(
+        key: key,
+        stepWidth: stepWidth,
+        stepHeight: stepHeight,
+        child: this,
+      );
+
+  /// Wraps this widget in an [IntrinsicHeight].
+  Widget intrinsicHeight({
+    Key? key,
+  }) =>
+      IntrinsicHeight(
+        key: key,
+        child: this,
+      );
 }

@@ -4,112 +4,102 @@ extension FlutterDeclarativeSyntaxButtonStyleModify on ButtonStyle {
   /// Adds or overrides the text style of the [ButtonStyle].
   ButtonStyle withTextStyle(TextStyle? textStyle) {
     return copyWith(
-      textStyle: MaterialStateProperty.all(textStyle),
+      textStyle: WidgetStateProperty.all(textStyle),
     );
   }
 
   /// Adds or overrides the background color of the [ButtonStyle].
-  ButtonStyle withBackgroundColor(Color? color) {
-    return copyWith(
-      backgroundColor: MaterialStateProperty.all(color),
-    );
-  }
+  ButtonStyle withBackgroundColor(Color color) => copyWith(
+        backgroundColor: WidgetStateProperty.all(color),
+      );
 
   /// Adds or overrides the foreground color of the [ButtonStyle].
-  ButtonStyle withForegroundColor(Color? color) {
-    return copyWith(
-      foregroundColor: MaterialStateProperty.all(color),
-    );
-  }
+  ButtonStyle withForegroundColor(Color color) => copyWith(
+        foregroundColor: WidgetStateProperty.all(color),
+      );
 
   /// Adds or overrides the overlay color of the [ButtonStyle].
-  ButtonStyle withOverlayColor(Color? color) {
-    return copyWith(
-      overlayColor: MaterialStateProperty.all(color),
-    );
-  }
+  ButtonStyle withOverlayColor(Color color) => copyWith(
+        overlayColor: WidgetStateProperty.all(color),
+      );
 
   /// Adds or overrides the shadow color of the [ButtonStyle].
-  ButtonStyle withShadowColor(Color? color) {
-    return copyWith(
-      shadowColor: MaterialStateProperty.all(color),
-    );
-  }
+  ButtonStyle withShadowColor(Color color) => copyWith(
+        shadowColor: WidgetStateProperty.all(color),
+      );
 
   /// Adds or overrides the surface tint color of the [ButtonStyle].
-  ButtonStyle withSurfaceTintColor(Color? color) {
-    return copyWith(
-      surfaceTintColor: MaterialStateProperty.all(color),
-    );
-  }
+  ButtonStyle withSurfaceTintColor(Color color) => copyWith(
+        surfaceTintColor: WidgetStateProperty.all(color),
+      );
 
   /// Adds or overrides the elevation of the [ButtonStyle].
   ButtonStyle withElevation(double? elevation) {
     return copyWith(
-      elevation: MaterialStateProperty.all(elevation),
+      elevation: WidgetStateProperty.all(elevation),
     );
   }
 
   /// Adds or overrides the padding of the [ButtonStyle].
   ButtonStyle withPadding(EdgeInsetsGeometry? padding) {
     return copyWith(
-      padding: MaterialStateProperty.all(padding),
+      padding: WidgetStateProperty.all(padding),
     );
   }
 
   /// Adds or overrides the minimum size of the [ButtonStyle].
   ButtonStyle withMinimumSize(Size? minimumSize) {
     return copyWith(
-      minimumSize: MaterialStateProperty.all(minimumSize),
+      minimumSize: WidgetStateProperty.all(minimumSize),
     );
   }
 
   /// Adds or overrides the fixed size of the [ButtonStyle].
   ButtonStyle withFixedSize(Size? fixedSize) {
     return copyWith(
-      fixedSize: MaterialStateProperty.all(fixedSize),
+      fixedSize: WidgetStateProperty.all(fixedSize),
     );
   }
 
   /// Adds or overrides the maximum size of the [ButtonStyle].
   ButtonStyle withMaximumSize(Size? maximumSize) {
     return copyWith(
-      maximumSize: MaterialStateProperty.all(maximumSize),
+      maximumSize: WidgetStateProperty.all(maximumSize),
     );
   }
 
   /// Adds or overrides the icon color of the [ButtonStyle].
   ButtonStyle withIconColor(Color? iconColor) {
     return copyWith(
-      iconColor: MaterialStateProperty.all(iconColor),
+      iconColor: WidgetStateProperty.all(iconColor),
     );
   }
 
   /// Adds or overrides the icon size of the [ButtonStyle].
   ButtonStyle withIconSize(double? iconSize) {
     return copyWith(
-      iconSize: MaterialStateProperty.all(iconSize),
+      iconSize: WidgetStateProperty.all(iconSize),
     );
   }
 
   /// Adds or overrides the side of the [ButtonStyle].
   ButtonStyle withSide(BorderSide? side) {
     return copyWith(
-      side: MaterialStateProperty.all(side),
+      side: WidgetStateProperty.all(side),
     );
   }
 
   /// Adds or overrides the shape of the [ButtonStyle].
   ButtonStyle withShape(OutlinedBorder? shape) {
     return copyWith(
-      shape: MaterialStateProperty.all(shape),
+      shape: WidgetStateProperty.all(shape),
     );
   }
 
   /// Adds or overrides the mouse cursor of the [ButtonStyle].
   ButtonStyle withMouseCursor(MouseCursor? mouseCursor) {
     return copyWith(
-      mouseCursor: MaterialStateProperty.all(mouseCursor),
+      mouseCursor: WidgetStateProperty.all(mouseCursor),
     );
   }
 

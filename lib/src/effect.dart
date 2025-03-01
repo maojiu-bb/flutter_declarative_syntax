@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 
@@ -188,6 +190,43 @@ extension FlutterDeclarativeSyntaxEffectModify on Widget {
         alignment: alignment,
         constrainedAxis: constrainedAxis,
         clipBehavior: clipBehavior,
+        child: this,
+      );
+}
+
+extension FlutterDeclarativeSyntaxEffectModifyExtra on Widget {
+  /// Wraps this widget in a [ShaderMask].
+  Widget shaderMask({
+    Key? key,
+    required Shader Function(Rect) shaderCallback,
+    BlendMode blendMode = BlendMode.modulate,
+  }) =>
+      ShaderMask(
+        key: key,
+        shaderCallback: shaderCallback,
+        blendMode: blendMode,
+        child: this,
+      );
+
+  /// Wraps this widget in a [BackdropFilter].
+  Widget backdropFilter({
+    Key? key,
+    required ImageFilter filter,
+  }) =>
+      BackdropFilter(
+        key: key,
+        filter: filter,
+        child: this,
+      );
+
+  /// Wraps this widget in a [ColorFiltered].
+  Widget colorFiltered({
+    Key? key,
+    required ColorFilter colorFilter,
+  }) =>
+      ColorFiltered(
+        key: key,
+        colorFilter: colorFilter,
         child: this,
       );
 }
