@@ -1,3 +1,13 @@
+## 1.0.1
+
+### Changed
+
+- Simplified package description
+- Updated deprecated APIs to use latest Flutter recommendations:
+  - Replaced MaterialStateProperty with WidgetStateProperty
+  - Updated color opacity handling
+  - Replaced textScaleFactor with textScaler
+
 ## 1.0.0
 
 ### Added
@@ -14,13 +24,6 @@
 - Focus & Semantics extensions
 - Comprehensive test coverage
 - Detailed documentation and examples
-
-### Changed
-
-- Updated deprecated APIs to use latest Flutter recommendations:
-  - Replaced MaterialStateProperty with WidgetStateProperty
-  - Updated color opacity handling
-  - Replaced textScaleFactor with textScaler
 
 ## 0.0.3
 
