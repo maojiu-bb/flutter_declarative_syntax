@@ -99,14 +99,18 @@ jobs:
       - name: Get plugin dependencies
         run: flutter pub get
 
-      # Check if example directory exists and build it
+      # Check if example directory exists and has a valid Flutter app structure
       - name: Build example app
         run: |
-          if [ -d "example" ]; then
+          if [ -d "example" ] && [ -f "example/pubspec.yaml" ] && [ -f "example/lib/main.dart" ]; then
+            echo "Found valid Flutter example app, building..."
             cd example
             flutter pub get
             flutter build apk --debug
             echo "Example app built successfully"
+          elif [ -d "example" ]; then
+            echo "Example directory exists but doesn't contain a valid Flutter app structure"
+            echo "Skipping example build"
           else
             echo "No example directory found, skipping example build"
           fi
