@@ -2,6 +2,10 @@
 
 A Flutter package that provides declarative syntax extensions for more readable and maintainable widget code.
 
+[![CI](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/ci.yml/badge.svg)](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/ci.yml)
+[![Publish](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/publish.yml/badge.svg)](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/publish.yml)
+[![Dependencies](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/dependencies.yml/badge.svg)](https://github.com/maojiu-bb/flutter_declarative_syntax/actions/workflows/dependencies.yml)
+
 ## Features
 
 ### List Extensions
