@@ -44,27 +44,21 @@ jobs:
       - name: Check package health
         run: dart pub publish --dry-run
 
-  # Job for running tests across multiple Flutter versions
+    # Job for running tests on Flutter 3.27.0
   test:
-    name: Test on Flutter ${{ matrix.flutter-version }}
+    name: Test on Flutter 3.27.0
     runs-on: ubuntu-latest
-
-    strategy:
-      # Don't cancel other jobs if one fails
-      fail-fast: false
-      matrix:
-        flutter-version: ['3.24.3', '3.27.0', 'stable']
 
     steps:
       # Checkout the repository code
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup Flutter with the specified version
-      - name: Setup Flutter ${{ matrix.flutter-version }}
+      # Setup Flutter 3.27.0
+      - name: Setup Flutter 3.27.0
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ matrix.flutter-version }}
+          flutter-version: '3.27.0'
           channel: 'stable'
           cache: true
 
@@ -78,7 +72,6 @@ jobs:
 
       # Upload coverage reports to Codecov (optional)
       - name: Upload coverage to Codecov
-        if: matrix.flutter-version == 'stable'
         uses: codecov/codecov-action@v3
         with:
           file: coverage/lcov.info

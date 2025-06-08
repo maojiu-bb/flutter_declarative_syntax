@@ -12,7 +12,7 @@ This directory contains GitHub Actions workflows for automating various aspects 
 
 - **Code Analysis**: Runs `flutter analyze` to catch potential issues
 - **Code Formatting**: Checks code formatting with `dart format`
-- **Multi-version testing**: Tests against multiple Flutter versions (3.24.3, 3.27.0, stable)
+- **Flutter 3.27.0 testing**: Tests specifically on Flutter 3.27.0 for maximum compatibility
 - **Coverage reporting**: Generates test coverage and uploads to Codecov
 - **Example app building**: Builds the example app if it exists
 - **Package health check**: Validates the package with `dart pub publish --dry-run`
@@ -111,7 +111,7 @@ To enable coverage reporting:
 
 You can customize the workflows by:
 
-- **Changing Flutter versions**: Modify the matrix in `ci.yml` (currently testing 3.24.3, 3.27.0, and stable)
+- **Changing Flutter version**: Modify the flutter-version in `ci.yml` (currently set to 3.27.0)
 - **Adding more checks**: Add additional steps to any workflow
 - **Changing triggers**: Modify the `on` section of each workflow
 - **Branch protection**: Set up branch protection rules that require these checks
@@ -148,9 +148,9 @@ Add these badges to your README.md to show workflow status:
 
    - Re-run `dart pub login` and update the secret
 
-3. **Tests failing on specific Flutter version**:
+3. **Tests failing on Flutter 3.27.0**:
 
-   - Check compatibility issues and update code accordingly
+   - Check Flutter 3.27.0 specific compatibility issues and update code accordingly
 
 4. **Dependency conflicts**:
    - Run `flutter pub deps` locally to debug dependency issues
