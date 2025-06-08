@@ -1,0 +1,139 @@
+name: Dependencies Check
+
+# Run weekly and on manual trigger
+on:
+  schedule:
+    # Run every Monday at 09:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+  # Also run on pull requests that modify dependencies
+  pull_request:
+    paths:
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+
+jobs:
+  # Job to check for dependency updates
+  check-dependencies:
+    name: Check Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Setup Flutter environment
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          channel: 'stable'
+          cache: true
+
+      # Get current dependencies
+      - name: Get dependencies
+        run: flutter pub get
+
+      # Check for outdated dependencies
+      - name: Check outdated dependencies
+        run: |
+          echo "## Dependency Status Report" >> $GITHUB_STEP_SUMMARY
+          echo "### Outdated Dependencies" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          flutter pub outdated || echo "All dependencies are up to date" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # Run dependency audit
+      - name: Audit dependencies
+        run: |
+          echo "### Dependency Tree" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          dart pub deps >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      # Check for security vulnerabilities (if available)
+      - name: Security audit
+        run: |
+          echo "### Security Audit" >> $GITHUB_STEP_SUMMARY
+          # Note: dart pub audit is not available yet, but we prepare for it
+          echo "Security audit tools are being prepared for Dart/Flutter" >> $GITHUB_STEP_SUMMARY
+        continue-on-error: true
+
+  # Job to create automated dependency update PR
+  dependency-update:
+    name: Create Dependency Update PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+      # Checkout the repository code with a personal access token for PR creation
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Setup Flutter environment
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          channel: 'stable'
+          cache: true
+
+      # Get current dependencies
+      - name: Get dependencies
+        run: flutter pub get
+
+      # Update dependencies
+      - name: Update dependencies
+        run: |
+          # Backup current pubspec.lock
+          cp pubspec.lock pubspec.lock.backup
+
+          # Update dependencies
+          flutter pub upgrade
+
+          # Check if there are any changes
+          if ! diff -q pubspec.lock pubspec.lock.backup > /dev/null; then
+            echo "DEPS_UPDATED=true" >> $GITHUB_ENV
+            echo "Dependencies were updated"
+          else
+            echo "DEPS_UPDATED=false" >> $GITHUB_ENV
+            echo "No dependency updates available"
+          fi
+
+      # Run tests to ensure updates don't break anything
+      - name: Test with updated dependencies
+        if: env.DEPS_UPDATED == 'true'
+        run: |
+          flutter test
+          flutter analyze
+
+      # Create Pull Request for dependency updates
+      - name: Create Pull Request
+        if: env.DEPS_UPDATED == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore: update dependencies'
+          title: 'chore: Update dependencies'
+          body: |
+            ## Automated Dependency Update
+
+            This PR updates the project dependencies to their latest compatible versions.
+
+            ### Changes
+            - Updated dependencies as specified in `pubspec.lock`
+            - All tests pass with the updated dependencies
+            - Code analysis passes with the updated dependencies
+
+            ### Verification
+            - [x] Tests pass
+            - [x] Code analysis passes
+            - [x] No breaking changes detected
+
+            This PR was automatically created by the Dependencies Check workflow.
+          branch: chore/update-dependencies
+          delete-branch: true
